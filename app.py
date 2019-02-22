@@ -4,7 +4,7 @@ from wtforms import StringField
 from wtforms.validators import DataRequired
 from flask_debugtoolbar import DebugToolbarExtension
 
-from models import Pet
+from models import Pet, connect_db
 
 app = Flask(__name__)
 app.config['SECRET_KEY' ]= 'oh-so-secret'
