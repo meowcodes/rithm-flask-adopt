@@ -1,4 +1,4 @@
-FROM flask_sqlalchemy IMPORT SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
 db= SQLAlchemy()
 
 DEFAULT_IMG_URL = 'https://www.top13.net/wp-content/uploads/2015/10/perfectly-timed-cat-photos-funny-cover.jpg'
