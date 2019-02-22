@@ -56,10 +56,10 @@ def edit_pet_form(pet_id):
         pet.photo_url = form.photo_url.data or None
         pet.notes = form.notes.data or None
         pet.available = form.available.data
-
+        
         db.session.commit()
 
         return redirect("/")
     else:
         return render_template(
-            "edit_pet_form.html", form=form)
+            "edit_pet_form.html", form=form, pet=pet)
