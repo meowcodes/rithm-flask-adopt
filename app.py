@@ -2,7 +2,7 @@ from flask import Flask, request, render_template, redirect, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
 
 from models import connect_db, db, Pet
-from forms import AddPetForm
+from forms import AddPetForm, EditPetForm
 
 app = Flask(__name__)
 app.config['SECRET_KEY' ]= 'oh-so-secret'
@@ -43,3 +43,23 @@ def add_pet_form():
     else:
         return render_template(
             "add_pet_form.html", form=form)
+
+@app.route("/<int:pet_id>", methods=["GET", "POST"])
+def edit_pet_form(pet_id):
+    """ Show and handle edit pet form """
+
+    pet = Pet.query.get_or_404(pet_id)
+    form = EditPetForm(obj=pet)
+
+    if form.validate_on_submit():
+
+        pet.photo_url = form.photo_url.data or None
+        pet.notes = form.notes.data or None
+        pet.available = form.available.data
+
+        db.session.commit()
+
+        return redirect("/")
+    else:
+        return render_template(
+            "edit_pet_form.html", form=form)
