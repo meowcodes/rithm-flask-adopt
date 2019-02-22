@@ -4,8 +4,10 @@ from flask_debugtoolbar import DebugToolbarExtension
 from models import connect_db, db, Pet
 from forms import AddPetForm, EditPetForm
 
+from secrets import PET_FIND_API_KEY, PET_FIND_API_SECRET
+
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'oh-so-secret'
+app.config['SECRET_KEY'] = 'dbfhsigdfyua'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///adopt_db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
@@ -34,9 +36,11 @@ def add_pet():
         age = form.age.data
         notes = form.notes.data or None
 
-        new_pet = Pet(name=name, species=species, 
+        new_pet = Pet(name=name, 
+                    species=species, 
                     photo_url=photo_url, 
-                    age=age, notes=notes)
+                    age=age, 
+                    notes=notes)
 
         db.session.add(new_pet)
         db.session.commit()

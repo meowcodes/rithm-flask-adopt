@@ -12,7 +12,7 @@ def connect_db(app):
 
 class Pet(db.Model):
     """ pet model """
-    
+
     __tablename__ = 'pets'
 
     id = db.Column(db.Integer,
@@ -25,6 +25,7 @@ class Pet(db.Model):
                     default=DEFAULT_IMG_URL)
     age = db.Column(db.Integer, nullable=False)
     notes = db.Column(db.Text)
-    available = db.Column(db.Boolean, nullable=False,
+    available = db.Column(db.Boolean, 
+                    nullable=False,
                     default=True)
     
