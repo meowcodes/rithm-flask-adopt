@@ -1,11 +1,11 @@
-from flask import Flask, request, render_template, redirect, jsonify
+from flask import Flask, render_template, redirect, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
 
 from models import connect_db, db, Pet
 from forms import AddPetForm, EditPetForm
 
 app = Flask(__name__)
-app.config['SECRET_KEY' ]= 'oh-so-secret'
+app.config['SECRET_KEY'] = 'oh-so-secret'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///adopt_db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
@@ -22,7 +22,7 @@ def show_homepage():
     return render_template("index.html", pets=pets)
 
 @app.route("/add", methods=["GET", "POST"])
-def add_pet_form():
+def add_pet():
     """ Show and handle add pet form """
 
     form = AddPetForm()
@@ -34,7 +34,9 @@ def add_pet_form():
         age = form.age.data
         notes = form.notes.data or None
 
-        new_pet = Pet(name=name, species=species, photo_url=photo_url, age=age, notes=notes)
+        new_pet = Pet(name=name, species=species, 
+                    photo_url=photo_url, 
+                    age=age, notes=notes)
 
         db.session.add(new_pet)
         db.session.commit()
@@ -45,9 +47,10 @@ def add_pet_form():
             "add_pet_form.html", form=form)
 
 @app.route("/<int:pet_id>", methods=["GET", "POST"])
-def edit_pet_form(pet_id):
+def edit_pet(pet_id):
     """ Show and handle edit pet form """
 
+    # finding pet and and prepopulate form
     pet = Pet.query.get_or_404(pet_id)
     form = EditPetForm(obj=pet)
 
@@ -61,5 +64,6 @@ def edit_pet_form(pet_id):
 
         return redirect("/")
     else:
+        # Re-present form for editing
         return render_template(
             "edit_pet_form.html", form=form, pet=pet)
