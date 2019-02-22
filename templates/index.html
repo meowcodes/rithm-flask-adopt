@@ -10,12 +10,12 @@
         <img src="{{ pet.photo_url }}">
         <p>
             <a href="pet/{{ pet.id }}">{{ pet.name }}</a> 
-            <b>is 
+
             {% if pet.available: %}
-                available!
+                <b>is available!</b>
             {% else: %}
-                not available.
-            {% endif %}</b>
+                is not available.
+            {% endif %}
         </p>
     </div>
     {% endfor %}
