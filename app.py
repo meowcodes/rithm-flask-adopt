@@ -1,10 +1,10 @@
-FROM flask IMPORT Flask, request, render_template, redirect, jsonify
-FROM flask_wtf IMPORT FlaskForm
-FROM wtforms IMPORT StringField
-FROM wtforms.validators IMPORT DataRequired
-FROM flask_debugtoolbar IMPORT DebugToolbarExtension
+from flask import Flask, request, render_template, redirect, jsonify
+from flask_wtf import FlaskForm
+from wtforms import StringField
+from wtforms.validators import DataRequired
+from flask_debugtoolbar import DebugToolbarExtension
 
-FROM models IMPORT Pet
+from models import Pet
 
 app = Flask(__name__)
 app.config['SECRET_KEY' ]= 'oh-so-secret'
