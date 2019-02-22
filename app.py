@@ -43,4 +43,3 @@ def add_pet_form():
     else:
         return render_template(
             "add_pet_form.html", form=form)
-        ########HTML for ADD PET FORM#########
