@@ -14,3 +14,11 @@ app.config['SQLALCHEMY_ECHO'] = True
 
 debug = DebugToolbarExtension(app)
 connect_db(app)
+
+@app.route("/")
+def show_homepage():
+    """ Shows all pets """
+
+    pets = Pet.query.all()
+
+    return render_template("index.html", pets=pets)
