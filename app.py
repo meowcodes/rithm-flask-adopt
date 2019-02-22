@@ -8,7 +8,7 @@ FROM models IMPORT Pet
 
 app = Flask(__name__)
 app.config['SECRET_KEY' ]= 'oh-so-secret'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///tarot_db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///adopt_db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
 
