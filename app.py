@@ -24,6 +24,12 @@ def show_homepage():
 
     pets = Pet.query.all()
 
+    random_pet_data = get_random_pet()
+
+    return render_template("index.html", pets=pets, random_pet=random_pet_data)
+
+
+def get_random_pet():
     random_p_jsn = requests.get(PET_FIND_URL)
     random_pet = random_p_jsn.json()
 
@@ -40,8 +46,7 @@ def show_homepage():
         'age': age,
         'photo_url': photo_url
     }
-
-    return render_template("index.html", pets=pets, random_pet=random_pet_data)
+    return random_pet_data
 
 @app.route("/add", methods=["GET", "POST"])
 def add_pet():
