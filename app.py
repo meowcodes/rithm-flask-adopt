@@ -1,5 +1,6 @@
 from flask import Flask, render_template, redirect, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
+import requests
 
 from models import connect_db, db, Pet
 from forms import AddPetForm, EditPetForm
@@ -22,6 +23,15 @@ def show_homepage():
     """ Shows all pets """
 
     pets = Pet.query.all()
+    import pdb; pdb.set_trace()
+
+    random_p_jsn = requests.get(PET_FIND_URL)
+    random_pet = random_p_jsn.json()
+    random_pet_data = {
+        'name': random_pet['petfinder']['pet']['name']['$t'],
+        'age': random_pet['petfinder']['pet']
+        # 'photo': random_pet['petfinder']
+    }
 
     return render_template("index.html", pets=pets)
 
