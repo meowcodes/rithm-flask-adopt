@@ -23,17 +23,21 @@ def show_homepage():
     """ Shows all pets """
 
     pets = Pet.query.all()
-    import pdb; pdb.set_trace()
 
     random_p_jsn = requests.get(PET_FIND_URL)
     random_pet = random_p_jsn.json()
+
+    name = random_pet['petfinder']['pet']['name']['$t']
+    age = random_pet['petfinder']['pet']['age']['$t']
+    photo_url = random_pet['petfinder']['pet']['media']['photos']['photo'][3]['$t']
+
     random_pet_data = {
-        'name': random_pet['petfinder']['pet']['name']['$t'],
-        'age': random_pet['petfinder']['pet']
-        # 'photo': random_pet['petfinder']
+        'name': name,
+        'age': age,
+        'photo_url': photo_url
     }
 
-    return render_template("index.html", pets=pets)
+    return render_template("index.html", pets=pets, random_pet=random_pet_data)
 
 @app.route("/add", methods=["GET", "POST"])
 def add_pet():

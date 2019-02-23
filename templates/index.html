@@ -4,8 +4,8 @@
 
 {% block content %}
 <div>
-    <h1>Pets</h1>
-    {% for pet in pets %}
+    <h1>Our Pets</h1>
+        {% for pet in pets %}
     <div>
         <img src="{{ pet.photo_url }}">
         <p>
@@ -20,5 +20,11 @@
     </div>
     {% endfor %}
     <button><a href="/add">Add a Pet</a></button>
+</div>
+<div>
+    <h2>Random Petfinder Pet</h2>
+    <img src="{{ random_pet.photo_url }}">
+    <p>{{ random_pet.name }}</p>
+    <p>Age: {{ random_pet.age }}</p>
 </div>
 {% endblock %}
