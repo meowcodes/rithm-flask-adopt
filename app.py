@@ -15,6 +15,8 @@ app.config['SQLALCHEMY_ECHO'] = True
 debug = DebugToolbarExtension(app)
 connect_db(app)
 
+PET_FIND_URL=f'http://api.petfinder.com/pet.getRandom?format=json&key={PET_FIND_API_KEY}&output=basic'
+
 @app.route("/")
 def show_homepage():
     """ Shows all pets """
