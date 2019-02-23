@@ -2,7 +2,7 @@ from flask import Flask, render_template, redirect, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
 import requests
 
-from models import connect_db, db, Pet
+from models import connect_db, db, Pet, DEFAULT_IMG_URL 
 from forms import AddPetForm, EditPetForm
 
 from secrets import PET_FIND_API_KEY, PET_FIND_API_SECRET
@@ -29,7 +29,11 @@ def show_homepage():
 
     name = random_pet['petfinder']['pet']['name']['$t']
     age = random_pet['petfinder']['pet']['age']['$t']
-    photo_url = random_pet['petfinder']['pet']['media']['photos']['photo'][3]['$t']
+    
+    try:
+        photo_url = random_pet['petfinder']['pet']['media']['photos']['photo'][3]['$t']
+    except KeyError:
+        photo_url = DEFAULT_IMG_URL
 
     random_pet_data = {
         'name': name,
